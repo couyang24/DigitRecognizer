@@ -30,18 +30,31 @@ model<-keras_model_sequential()
 model %>% 
   layer_conv_2d(filters = 32, kernel_size = c(5,5),padding = 'Valid',
                 activation = 'relu', input_shape = c(28,28,1))%>%
-  layer_conv_2d(filters = 32, kernel_size = c(3,3),padding = 'Same',
+  layer_batch_normalization()%>%
+  layer_conv_2d(filters = 32, kernel_size = c(5,5),padding = 'Same',
                 activation = 'relu')%>%
   layer_batch_normalization()%>%
   layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
   layer_dropout(rate = 0.2) %>% 
+  
   layer_conv_2d(filters = 64, kernel_size = c(3,3),padding = 'Same',
                 activation = 'relu')%>%
+  layer_batch_normalization()%>%
   layer_conv_2d(filters = 64, kernel_size = c(3,3),padding = 'Same',
+                activation = 'relu')%>%
+  layer_batch_normalization()%>%
+  layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
+  layer_dropout(rate = 0.2) %>%
+  
+  layer_conv_2d(filters = 128, kernel_size = c(3,3),padding = 'Same',
+                activation = 'relu')%>%
+  layer_batch_normalization()%>%
+  layer_conv_2d(filters = 128, kernel_size = c(3,3),padding = 'Same',
                 activation = 'relu')%>%
   layer_batch_normalization()%>%
   layer_max_pooling_2d(pool_size = c(2, 2), strides=c(2,2)) %>% 
   layer_dropout(rate = 0.2) %>% 
+  
   layer_flatten() %>% 
   layer_dense(units=1024,activation='relu')%>%
   layer_dense(units=512,activation='relu')%>%
@@ -62,10 +75,11 @@ datagen <- image_data_generator(
   zca_whitening=F,
   horizontal_flip = F,
   vertical_flip = F,
-  width_shift_range = 0.10,
-  height_shift_range = 0.10,
-  zoom_range = 0.1,
-  rotation_range = 10
+  width_shift_range = 0.15,
+  height_shift_range = 0.15,
+  zoom_range = 0.15,
+  rotation_range = .1,
+  shear_range = 0.15
 )
 
 
