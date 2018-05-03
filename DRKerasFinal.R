@@ -3,6 +3,8 @@ library(keras)
 library(tensorflow)
 
 
+setwd("C:/Users/Owen/Dropbox/Analysis/Database/Digit Recognizer")
+
 train<-data.matrix(read_csv("train.csv"))
 test<-data.matrix(read_csv("test.csv"))
 
