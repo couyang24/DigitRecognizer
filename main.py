@@ -167,7 +167,7 @@ trainY[0,:].reshape(4000,1).shape
 
 
 # Gradient descent (≈ 1 line of code)
-parameters, grads = optimize(w, b, trainX, trainY[0,:].reshape(1,4000), numIter=200, learningRate=0.005)
+parameters, grads = optimize(w, b, trainX, trainY[0,:].reshape(1,4000), numIter=2000, learningRate=0.005)
 
 # Retrieve parameters w and b from dictionary "parameters"
 w = parameters["w"]
@@ -179,6 +179,8 @@ Y_prediction_train = predict(w, b, trainX)
 
 
 Y_prediction_train.shape
-Y_prediction_train[:,40:50]
+Y_prediction_train
 
+
+np.sum(Y_prediction_train)
 trainY[0,:].reshape(1,4000)
