@@ -8,12 +8,15 @@ from sklearn.preprocessing import LabelBinarizer
 train = pd.read_csv('input/train.csv')
 
 # Limited the Data Size
-train = train.iloc[:4000,:]
+# train = train.iloc[:4000,:]
+
+train = train[train['label']<2]
+
 
 
 # Brief Overview
 train.shape
-train.iloc[0, :]
+train.iloc[:, 0]
 
 
 ## Check if Evenly Distributed
@@ -23,12 +26,12 @@ sns.countplot(x="label", data=train)
 plt.show()
 
 # Encoding
-lb_style = LabelBinarizer()
-lb_results = lb_style.fit_transform(train.iloc[:,0])
-pd.DataFrame(lb_results, columns=lb_style.classes_).head()
+#lb_style = LabelBinarizer()
+#lb_results = lb_style.fit_transform(train.iloc[:,0])
+#pd.DataFrame(lb_results, columns=lb_style.classes_).head()
 
 # Reshape and Separate
-trainY = lb_results.reshape(10, 4000)
+trainY = train.iloc[:, 0].reshape(1, train.shape[0])
 trainX = train.iloc[:,1:].values.T
 
 
@@ -183,7 +186,7 @@ print ("predictions = " + str(predict(w, b, X)))
 
 
 trainY[0,:].shape
-trainY[0,:].reshape(1,4000)
+trainY[0,:].reshape(1,train.shape[0])
 
 
 
