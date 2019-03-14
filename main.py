@@ -38,3 +38,7 @@ trainX.shape
 trainY.shape
 trainX = trainX/255
 
+def sigmoid(x):
+    s = 1/(1+np.exp(-x))
+    return s
+
