@@ -42,3 +42,13 @@ def sigmoid(x):
     s = 1/(1+np.exp(-x))
     return s
 
+def iniSmall(dim):
+    w = np.random.rand(dim).reshape(dim, 1)/100
+    b = 0
+    return w, b
+
+
+w, b = iniSmall(3)
+
+print(w)
+print(b)
