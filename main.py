@@ -1,78 +1,76 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
-from scipy import ndimage
-
 import seaborn as sns
+from sklearn.preprocessing import LabelBinarizer
 
+# Reading Kaggle Data
 train = pd.read_csv('input/train.csv')
 
-train.shape
-train.iloc[0,:]
-
-train.shape
-
+# Limited the Data Size
 train = train.iloc[:4000,:]
 
+
+# Brief Overview
+train.shape
+train.iloc[0, :]
+
+
+## Check if Evenly Distributed
 train.iloc[:,:2].groupby(['label']).count()
-
-
 sns.set(style="darkgrid")
 sns.countplot(x="label", data=train)
 plt.show()
 
-
-
-from sklearn.preprocessing import LabelBinarizer
-
+# Encoding
 lb_style = LabelBinarizer()
 lb_results = lb_style.fit_transform(train.iloc[:,0])
 pd.DataFrame(lb_results, columns=lb_style.classes_).head()
 
-
+# Reshape and Separate
 trainY = lb_results.reshape(10, 4000)
 trainX = train.iloc[:,1:].values.T
 
 
+# Useful Info
 count = trainX.shape[1]
 length = int(np.sqrt(trainX.shape[0]))
 height = int(np.sqrt(trainX.shape[0]))
 
+# Print the number
 index = 8
 plt.imshow(trainX.reshape(height, length, count)[:,:,index])
 plt.show()
 
+
+# Check Shape
 trainX.shape
 trainY.shape
+
+# Normalize
 trainX = trainX/255
 
-
-
-
-
-
-
-
-
+# Define Sigmoid Fuction
 def sigmoid(x):
     s = 1/(1+np.exp(-x))
     return s
 
-
+## check
 print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
 
+# Define Initial Small Number
 def iniSmall(dim):
     w = np.random.rand(dim).reshape(dim, 1)/100
     b = 0
     return w, b
 
-
+## Check
 w, b = iniSmall(3)
-
 print(w)
 print(b)
 
+
+# Define Sigmoid Propagation
 def sigPropagate(w, b, X, Y):
     # Forward Propagation
     count = X.shape[1]
@@ -88,15 +86,14 @@ def sigPropagate(w, b, X, Y):
 
     return grads #, cost
 
+## check
 w, b, X, Y = np.array([[1.],[2.]]), 2., np.array([[1.,2.,-1.],[3.,4.,-3.2]]), np.array([[1,0,1]])
 grads = sigPropagate(w, b, X, Y)
 print ("dw = " + str(grads["dw"]))
 print ("db = " + str(grads["db"]))
 #print ("cost = " + str(cost))
 
-
-
-
+# Define Optimize
 def optimize(w, b, X, Y, numIter, learningRate):
 
     for index in range(numIter):
@@ -114,16 +111,14 @@ def optimize(w, b, X, Y, numIter, learningRate):
 
     return params, grads
 
-
+# check
 params, grads = optimize(w, b, X, Y, numIter=100, learningRate=0.009)
-
 print ("w = " + str(params["w"]))
 print ("b = " + str(params["b"]))
 print ("dw = " + str(grads["dw"]))
 print ("db = " + str(grads["db"]))
 
-
-
+# Define Prediction
 def predict(w, b, X):
     count = X.shape[1]
     Y_prediction = np.zeros((1, count))
@@ -146,7 +141,7 @@ def predict(w, b, X):
 
     return Y_prediction
 
-
+## check
 w = np.array([[0.1124579],[0.23106775]])
 b = -0.3
 X = np.array([[1.,-1.1,-3.2],[1.2,2.,0.1]])
@@ -162,11 +157,8 @@ trainY[0,:].reshape(1,4000)
 w, b = iniSmall(trainX.shape[0])
 
 
-trainX.shape
-trainY[0,:].reshape(4000,1).shape
 
-
-# Gradient descent (≈ 1 line of code)
+# Gradient descent
 parameters, grads = optimize(w, b, trainX, trainY[0,:].reshape(1,4000), numIter=2000, learningRate=0.005)
 
 # Retrieve parameters w and b from dictionary "parameters"
