@@ -11,7 +11,7 @@ def sigmoid(x):
 
 # Define Initial Small Number
 def iniSmall(dim):
-    w = np.random.rand(dim).reshape(dim, 10)/100
+    w = np.random.rand(dim*10).reshape(dim, 10)/100
     b = 0
     return w, b
 
@@ -75,23 +75,19 @@ def predict(w, b, X):
 
 # Reading Kaggle Data
 train = pd.read_csv('input/train.csv')
-test = pd.read_csv('input/train.csv')
+#test = pd.read_csv('input/test.csv')
 
 # Encoding
 lb_style = LabelBinarizer()
 lb_train_results = lb_style.fit_transform(train.iloc[:, 0])
 trainY = pd.DataFrame(lb_train_results, columns=lb_style.classes_).head()
 
-lb_test_results = lb_style.fit_transform(test.iloc[:, 0])
-testY = pd.DataFrame(lb_test_results, columns=lb_style.classes_).head()
-
-
 # reshape
-trainY = lb_results.reshape(10, 4000)
+trainY = lb_train_results.reshape(10, 42000)
 trainX = train.iloc[:,1:].values.T
 
-
-
+#testX = test.values.T
+#testX.shape
 
 
 
@@ -101,3 +97,10 @@ trainX = train.iloc[:,1:].values.T
 
 
 w, b = iniSmall(trainX.shape[0])
+
+# Gradient descent
+parameters, grads = optimize(w, b, trainX, trainY, numIter=2000, learningRate=0.005)
+
+# Retrieve parameters w and b from dictionary "parameters"
+w = parameters["w"]
+b = parameters["b"]
