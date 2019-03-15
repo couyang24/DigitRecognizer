@@ -77,6 +77,18 @@ def predict(w, b, X):
 train = pd.read_csv('input/train.csv')
 test = pd.read_csv('input/train.csv')
 
+# Encoding
+lb_style = LabelBinarizer()
+lb_results = lb_style.fit_transform(train.iloc[:,0])
+trainLabel = pd.DataFrame(lb_results, columns=lb_style.classes_)
+
+del lb_results, lb_style
+
+
+trainLabel
+
+for i in range(10):
+    trainEach = train[train['label'] == i]
 
 
 
@@ -89,6 +101,4 @@ test = pd.read_csv('input/train.csv')
 
 
 
-
-
-w, b = iniSmall(trainX.shape[0])
+#　w, b = iniSmall(trainX.shape[0])

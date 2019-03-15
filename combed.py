@@ -80,7 +80,7 @@ train = pd.read_csv('input/train.csv')
 # Encoding
 lb_style = LabelBinarizer()
 lb_train_results = lb_style.fit_transform(train.iloc[:, 0])
-trainY = pd.DataFrame(lb_train_results, columns=lb_style.classes_).head()
+trainY = pd.DataFrame(lb_train_results, columns=lb_style.classes_)
 
 # reshape
 trainY = lb_train_results.reshape(10, 42000)
