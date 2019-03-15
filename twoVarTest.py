@@ -12,6 +12,10 @@ train = pd.read_csv('input/train.csv')
 
 train = train[train['label']<2]
 
+train.shape
+
+test = train.iloc[800:, :]
+train = train.iloc[:800, :]
 
 
 # Brief Overview
@@ -34,6 +38,8 @@ plt.show()
 trainY = train.iloc[:, 0].reshape(1, train.shape[0])
 trainX = train.iloc[:,1:].values.T
 
+testY = test.iloc[:, 0].reshape(1, test.shape[0])
+testX = test.iloc[:,1:].values.T
 
 # Useful Info
 count = trainX.shape[1]
@@ -191,7 +197,7 @@ w, b = iniSmall(trainX.shape[0])
 
 
 # Gradient descent
-parameters, grads = optimize(w, b, trainX, trainY, numIter=20000, learningRate=0.005)
+parameters, grads = optimize(w, b, trainX, trainY, numIter=2000, learningRate=0.005)
 
 # Retrieve parameters w and b from dictionary "parameters"
 w = parameters["w"]
@@ -199,9 +205,7 @@ b = parameters["b"]
 
 
 
-Y_prediction_train = predict(w, b, trainX)
+Y_prediction_test = predict(w, b, testX)
 
 
-np.sum(trainY == Y_prediction_train)/Y_prediction_train.shape[1]*100
-
-
+np.sum(testY == Y_prediction_test)/Y_prediction_test.shape[1]*100
