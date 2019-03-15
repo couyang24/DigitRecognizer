@@ -8,12 +8,15 @@ from sklearn.preprocessing import LabelBinarizer
 train = pd.read_csv('input/train.csv')
 
 # Limited the Data Size
-train = train.iloc[:4000,:]
+# train = train.iloc[:4000,:]
+
+train = train[train['label']<2]
+
 
 
 # Brief Overview
 train.shape
-train.iloc[0, :]
+train.iloc[:, 0]
 
 
 ## Check if Evenly Distributed
@@ -23,12 +26,12 @@ sns.countplot(x="label", data=train)
 plt.show()
 
 # Encoding
-lb_style = LabelBinarizer()
-lb_results = lb_style.fit_transform(train.iloc[:,0])
-pd.DataFrame(lb_results, columns=lb_style.classes_).head()
+#lb_style = LabelBinarizer()
+#lb_results = lb_style.fit_transform(train.iloc[:,0])
+#pd.DataFrame(lb_results, columns=lb_style.classes_).head()
 
 # Reshape and Separate
-trainY = lb_results.reshape(10, 4000)
+trainY = train.iloc[:, 0].reshape(1, train.shape[0])
 trainX = train.iloc[:,1:].values.T
 
 
@@ -55,23 +58,15 @@ def sigmoid(x):
     s = 1/(1+np.exp(-x))
     return s
 
-<<<<<<< HEAD
-def iniWB(dim):
-=======
 ## check
 print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
 
 # Define Initial Small Number
 def iniSmall(dim):
->>>>>>> 15e4a26b6008f9e9484f862510511a4425109a11
     w = np.random.rand(dim).reshape(dim, 1)/100
     b = 0
     return w, b
 
-<<<<<<< HEAD
-
-w, b = iniWB(3)
-=======
 ## Check
 w, b = iniSmall(3)
 print(w)
@@ -100,7 +95,6 @@ def initialize_with_zeros(dim):
 
     return w, b
 
->>>>>>> 15e4a26b6008f9e9484f862510511a4425109a11
 
 ## Check
 w, b = initialize_with_zeros(3)
@@ -192,7 +186,7 @@ print ("predictions = " + str(predict(w, b, X)))
 
 
 trainY[0,:].shape
-trainY[0,:].reshape(1,4000)
+trainY[0,:].reshape(1,train.shape[0])
 
 
 
