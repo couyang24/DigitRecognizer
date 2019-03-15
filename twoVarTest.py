@@ -185,24 +185,13 @@ print ("predictions = " + str(predict(w, b, X)))
 
 
 
-trainY[0,:].shape
-trainY[0,:].reshape(1,train.shape[0])
 
 
-
-w, b = initialize_with_zeros(trainX.shape[0])
-
-
-trainX
-trainY[0,:].reshape(1,4000)
-
-
-trainX.shape
-trainY[0,:].reshape(1,4000).shape
+w, b = iniSmall(trainX.shape[0])
 
 
 # Gradient descent
-parameters, grads = optimize(w, b, trainX, trainY[0,:].reshape(1,4000), numIter=2000, learningRate=0.005)
+parameters, grads = optimize(w, b, trainX, trainY, numIter=20000, learningRate=0.005)
 
 # Retrieve parameters w and b from dictionary "parameters"
 w = parameters["w"]
@@ -213,9 +202,6 @@ b = parameters["b"]
 Y_prediction_train = predict(w, b, trainX)
 
 
-Y_prediction_train.shape
-Y_prediction_train
+np.sum(trainY == Y_prediction_train)/Y_prediction_train.shape[1]*100
 
 
-np.sum(Y_prediction_train)
-trainY[0,:].reshape(1,4000)
