@@ -55,15 +55,23 @@ def sigmoid(x):
     s = 1/(1+np.exp(-x))
     return s
 
+<<<<<<< HEAD
+def iniWB(dim):
+=======
 ## check
 print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
 
 # Define Initial Small Number
 def iniSmall(dim):
+>>>>>>> 15e4a26b6008f9e9484f862510511a4425109a11
     w = np.random.rand(dim).reshape(dim, 1)/100
     b = 0
     return w, b
 
+<<<<<<< HEAD
+
+w, b = iniWB(3)
+=======
 ## Check
 w, b = iniSmall(3)
 print(w)
@@ -92,6 +100,7 @@ def initialize_with_zeros(dim):
 
     return w, b
 
+>>>>>>> 15e4a26b6008f9e9484f862510511a4425109a11
 
 ## Check
 w, b = initialize_with_zeros(3)
@@ -163,12 +172,10 @@ def predict(w, b, X):
     for i in range(A.shape[1]):
 
         # Convert probabilities A[0,i] to actual predictions p[0,i]
-        ### START CODE HERE ### (≈ 4 lines of code)
         if A[:,i] >=0.5:
             Y_prediction[0,i] = 1
         else:
             Y_prediction[0,i] = 0
-        ### END CODE HERE ###
 
     assert(Y_prediction.shape == (1, count))
 

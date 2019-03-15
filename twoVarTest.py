@@ -12,6 +12,10 @@ train = pd.read_csv('input/train.csv')
 
 train = train[train['label']<2]
 
+train.shape
+
+test = train.iloc[800:, :]
+train = train.iloc[:800, :]
 
 
 # Brief Overview
@@ -34,9 +38,14 @@ plt.show()
 trainY = train.iloc[:, 0].values.reshape(1, train.shape[0])
 trainX = train.iloc[:,1:].values.T
 
+<<<<<<< HEAD
 trainX.shape
 trainY.shape
 
+=======
+testY = test.iloc[:, 0].reshape(1, test.shape[0])
+testX = test.iloc[:,1:].values.T
+>>>>>>> b4056d33fdfbab0aeb071ca23691e5b2983ca4e1
 
 # Useful Info
 count = trainX.shape[1]
@@ -175,6 +184,7 @@ b = -0.3
 X = np.array([[1.,-1.1,-3.2],[1.2,2.,0.1]])
 print ("predictions = " + str(predict(w, b, X)))
 
+<<<<<<< HEAD
 w, b = initialize_with_zeros(trainX.shape[0])
 
 trainX.shape
@@ -182,6 +192,17 @@ trainY.shape
 
 # Gradient descent
 parameters, grads = optimize(w, b, trainX, trainY, numIter=20000, learningRate=0.005)
+=======
+
+
+
+
+w, b = iniSmall(trainX.shape[0])
+
+
+# Gradient descent
+parameters, grads = optimize(w, b, trainX, trainY, numIter=2000, learningRate=0.005)
+>>>>>>> b4056d33fdfbab0aeb071ca23691e5b2983ca4e1
 
 # Retrieve parameters w and b from dictionary "parameters"
 w = parameters["w"]
@@ -189,6 +210,7 @@ b = parameters["b"]
 
 
 
+<<<<<<< HEAD
 Y_prediction_train = predict(w, b, trainX)
 
 
@@ -201,3 +223,9 @@ np.sum(trainY == Y_prediction_train)/Y_prediction_train.shape[1]*100
 
 del train
 del trainX
+=======
+Y_prediction_test = predict(w, b, testX)
+
+
+np.sum(testY == Y_prediction_test)/Y_prediction_test.shape[1]*100
+>>>>>>> b4056d33fdfbab0aeb071ca23691e5b2983ca4e1
