@@ -104,3 +104,18 @@ parameters, grads = optimize(w, b, trainX, trainY, numIter=2000, learningRate=0.
 # Retrieve parameters w and b from dictionary "parameters"
 w = parameters["w"]
 b = parameters["b"]
+
+# Define Prediction
+def predict(w, b, X):
+    count = X.shape[1]
+    Y_prediction = np.zeros((10, count))
+    w = w.reshape(X.shape[0], 10)
+    A = sigmoid(np.dot(w.T,X)+b)
+
+    return A
+
+Y_prediction_train = predict(w, b, trainX)
+
+np.sum(Y_prediction_train[,])
+
+np.sum(Y_prediction_train)

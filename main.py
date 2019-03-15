@@ -172,12 +172,10 @@ def predict(w, b, X):
     for i in range(A.shape[1]):
 
         # Convert probabilities A[0,i] to actual predictions p[0,i]
-        ### START CODE HERE ### (≈ 4 lines of code)
         if A[:,i] >=0.5:
             Y_prediction[0,i] = 1
         else:
             Y_prediction[0,i] = 0
-        ### END CODE HERE ###
 
     assert(Y_prediction.shape == (1, count))
 
